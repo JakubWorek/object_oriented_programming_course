@@ -2,24 +2,26 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.WorldMap;
 
 import java.util.List;
 import java.util.ArrayList;
 
 
 public class Simulation {
-    private List<Animal> animals;
+    private final List<Animal> animals;
+    private final List<MoveDirection> directions;
+    private final WorldMap map;
 
-    private List<MoveDirection> directions;
-    private int currentMovementIndex;
-
-    public Simulation(List<MoveDirection> directions, List<Vector2d> positions) {
+    public Simulation(List<MoveDirection> directions, List<Vector2d> positions, WorldMap map) {
         this.animals = new ArrayList<>();
-        for (int i=0; i<positions.size(); i++){
-            animals.add(new Animal(MapDirection.NORTH,positions.get(i)));
+        for (Vector2d position : positions) {
+            Animal animal = new Animal(MapDirection.NORTH, position);
+            animals.add(animal);
+            map.place(animal);
         }
-        this.currentMovementIndex = 0;
         this.directions = directions;
+        this.map = map;
     }
 
     public List<Animal> getAnimals() {
@@ -27,17 +29,12 @@ public class Simulation {
     }
 
     public void run() {
-        while (currentMovementIndex < directions.size()) {
-            for (int i=0; i<animals.size(); i++){
-                if (currentMovementIndex >= directions.size()) {
-                    break;
-                }
-
-                MoveDirection movement = directions.get(currentMovementIndex);
-                animals.get(i).move(movement);
-                System.out.println("Zwierze " + i + ": " + animals.get(i));
-                currentMovementIndex++;
-            }
+        System.out.println(map);
+        for(int i = 0; i < directions.size(); i++){
+            map.move(animals.get(i % animals.size()), directions.get(i));
+            //int num = i % animals.size();
+            //System.out.println("Zwierze " + num + ": " + animals.get(num));
+            System.out.println(map);
         }
     }
 }
