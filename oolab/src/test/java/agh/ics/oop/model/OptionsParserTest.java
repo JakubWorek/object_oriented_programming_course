@@ -1,55 +1,56 @@
 package agh.ics.oop.model;
+
 import agh.ics.oop.OptionParser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 
 public class OptionsParserTest {
     @Test
     void translate_shouldTranslateForward() {
         String[] args = {"f"};
-        MoveDirection[] expected = {MoveDirection.FORWARD};
-        assertArrayEquals(expected, OptionParser.translate(args));
+        List<MoveDirection> expected = List.of(MoveDirection.FORWARD);
+        assertEquals(expected, OptionParser.parse(args));
     }
 
     @Test
     void translate_shouldTranslateBackward() {
         String[] args = {"b"};
-        MoveDirection[] expected = {MoveDirection.BACKWARD};
-        assertArrayEquals(expected, OptionParser.translate(args));
+        List<MoveDirection> expected = List.of(MoveDirection.BACKWARD);
+        assertEquals(expected, OptionParser.parse(args));
     }
 
     @Test
     void translate_shouldTranslateRight() {
         String[] args = {"r"};
-        MoveDirection[] expected = {MoveDirection.RIGHT};
-        assertArrayEquals(expected, OptionParser.translate(args));
+        List<MoveDirection> expected = List.of(MoveDirection.RIGHT);
+        assertEquals(expected, OptionParser.parse(args));
     }
 
     @Test
     void translate_shouldTranslateLeft() {
         String[] args = {"l"};
-        MoveDirection[] expected = {MoveDirection.LEFT};
-        assertArrayEquals(expected, OptionParser.translate(args));
+        List<MoveDirection> expected = List.of(MoveDirection.LEFT);
+        assertEquals(expected, OptionParser.parse(args));
     }
 
     @Test
     void translate_shouldTranslateFailedForUnknownDirection() {
         String[] args = {"x"};
-        MoveDirection[] expected = {MoveDirection.FAILED};
-        assertArrayEquals(expected, OptionParser.translate(args));
+        List<MoveDirection> expected = List.of();
+        assertEquals(expected, OptionParser.parse(args));
     }
 
     @Test
     void translate_shouldTranslateMultipleDirections() {
         String[] args = {"f", "b", "r", "l"};
-        MoveDirection[] expected = {
+        List<MoveDirection> expected = List.of(
                 MoveDirection.FORWARD,
                 MoveDirection.BACKWARD,
                 MoveDirection.RIGHT,
                 MoveDirection.LEFT
-        };
-        assertArrayEquals(expected, OptionParser.translate(args));
+        );
+        assertEquals(expected, OptionParser.parse(args));
     }
 }
-
