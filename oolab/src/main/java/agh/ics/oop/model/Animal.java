@@ -3,6 +3,8 @@ package agh.ics.oop.model;
 import agh.ics.oop.MapDirection;
 import agh.ics.oop.Vector2d;
 
+import java.util.function.Function;
+
 public class Animal {
     private MapDirection direction;
     private Vector2d coordinates;
@@ -26,14 +28,17 @@ public class Animal {
     }
 
     public String toString(){
-        return "Zwierze znajduje sie na wspolrzednych: " + this.coordinates.toString() + " w kierunku: " + this.direction.toString();
+        //return "Zwierze znajduje sie na wspolrzednych: " + this.coordinates.toString() + " w kierunku: " + this.direction.toString();
+        return this.direction.toString();
     }
 
     public boolean isAt(Vector2d position){
         return this.coordinates.equals(position);
     }
 
-    public void move(MoveDirection direction){
+    public void move(MoveDirection direction, Function<Vector2d, Boolean> canMoveTo){
+        Vector2d potentialNewPosition;
+
         switch (direction){
             case RIGHT:
                 this.direction = this.direction.next();
@@ -42,13 +47,15 @@ public class Animal {
                 this.direction = this.direction.previous();
                 break;
             case FORWARD:
-                if(this.coordinates.add(this.direction.toUnitVector()).follows(new Vector2d(0,0)) && this.coordinates.add(this.direction.toUnitVector()).precedes(new Vector2d(4,4))) {
-                    this.coordinates = this.coordinates.add(this.direction.toUnitVector());
+                potentialNewPosition = this.coordinates.add(this.direction.toUnitVector());
+                if (canMoveTo.apply(potentialNewPosition)) {
+                    this.coordinates = potentialNewPosition;
                 }
                 break;
             case BACKWARD:
-                if(this.coordinates.subtract(this.direction.toUnitVector()).follows(new Vector2d(0,0)) && this.coordinates.subtract(this.direction.toUnitVector()).precedes(new Vector2d(4,4))) {
-                    this.coordinates = this.coordinates.subtract(this.direction.toUnitVector());
+                potentialNewPosition = this.coordinates.subtract(this.direction.toUnitVector());
+                if (canMoveTo.apply(potentialNewPosition)) {
+                    this.coordinates = potentialNewPosition;
                 }
                 break;
             default:
