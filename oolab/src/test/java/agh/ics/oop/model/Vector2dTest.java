@@ -50,7 +50,7 @@ public class Vector2dTest {
         assertFalse(v.equals(u));
         assertTrue(v.equals(v));
     }
-
+    
     @Test
     void opposite() {
         assertEquals(new Vector2d(-1,-1), v.opposite());
