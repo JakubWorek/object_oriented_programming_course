@@ -1,13 +1,10 @@
-package agh.ics.oop.model;
+package agh.ics.oop;
 
-import agh.ics.oop.MapDirection;
-import agh.ics.oop.Vector2d;
-import agh.ics.oop.Simulation;
+import agh.ics.oop.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,7 +23,6 @@ public class SimulationTest {
 
         List<Vector2d> positions = new ArrayList<>();
         positions.add(new Vector2d(2, 2));
-        //positions.add(new Vector2d(2, 3));
         WorldMap map = new RectangularMap(5,5);
 
         Simulation simulation = new Simulation(directions, positions, map);

@@ -1,8 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MapDirection;
-import agh.ics.oop.Vector2d;
-
 import java.util.function.Function;
 
 public class Animal {
@@ -28,7 +25,6 @@ public class Animal {
     }
 
     public String toString(){
-        //return "Zwierze znajduje sie na wspolrzednych: " + this.coordinates.toString() + " w kierunku: " + this.direction.toString();
         return this.direction.toString();
     }
 
