@@ -23,7 +23,7 @@ public class SimulationTest {
 
         List<Vector2d> positions = new ArrayList<>();
         positions.add(new Vector2d(2, 2));
-        WorldMap map = new RectangularMap(5,5);
+        RectangularMap map = new RectangularMap(5,5);
 
         Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
@@ -48,7 +48,7 @@ public class SimulationTest {
 
         List<Vector2d> positions = new ArrayList<>();
         positions.add(new Vector2d(0, 0));
-        WorldMap map = new RectangularMap(5,5);
+        RectangularMap map = new RectangularMap(5,5);
 
         Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();
@@ -85,7 +85,7 @@ public class SimulationTest {
 
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
 
-        WorldMap map = new RectangularMap(5,5);
+        RectangularMap map = new RectangularMap(5,5);
 
         Simulation simulation = new Simulation(directions, positions, map);
         simulation.run();

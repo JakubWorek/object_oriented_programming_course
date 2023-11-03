@@ -32,7 +32,7 @@ public class Animal {
         return this.coordinates.equals(position);
     }
 
-    public void move(MoveDirection direction, Function<Vector2d, Boolean> canMoveTo){
+    public void move(MoveDirection direction, RectangularMap map){
         Vector2d potentialNewPosition;
 
         switch (direction){
@@ -44,13 +44,13 @@ public class Animal {
                 break;
             case FORWARD:
                 potentialNewPosition = this.coordinates.add(this.direction.toUnitVector());
-                if (canMoveTo.apply(potentialNewPosition)) {
+                if (map.canMoveTo(potentialNewPosition)) {
                     this.coordinates = potentialNewPosition;
                 }
                 break;
             case BACKWARD:
                 potentialNewPosition = this.coordinates.subtract(this.direction.toUnitVector());
-                if (canMoveTo.apply(potentialNewPosition)) {
+                if (map.canMoveTo(potentialNewPosition)) {
                     this.coordinates = potentialNewPosition;
                 }
                 break;
