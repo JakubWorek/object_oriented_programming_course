@@ -15,8 +15,9 @@ public class Simulation {
         this.animals = new ArrayList<>();
         for (Vector2d position : positions) {
             Animal animal = new Animal(MapDirection.NORTH, position);
-            animals.add(animal);
-            map.place(animal);
+            if(map.place(animal)){
+                this.animals.add(animal);
+            }
         }
         this.directions = directions;
         this.map = map;
