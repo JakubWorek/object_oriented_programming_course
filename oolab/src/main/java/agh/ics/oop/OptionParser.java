@@ -21,9 +21,6 @@ public class OptionParser {
                 case "l":
                     results[i] = MoveDirection.LEFT;
                     break;
-                default:
-                    results[i] = MoveDirection.FAILED;
-                    break;
             }
         }
 
