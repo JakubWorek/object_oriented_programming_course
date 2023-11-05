@@ -1,8 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MapDirection;
-import agh.ics.oop.Vector2d;
-
 public class Animal {
     private MapDirection direction;
     private Vector2d coordinates;
