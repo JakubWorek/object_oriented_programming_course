@@ -1,4 +1,4 @@
-package agh.ics.oop;
+package agh.ics.oop.model;
 
 public class Vector2d {
     public final int x, y;

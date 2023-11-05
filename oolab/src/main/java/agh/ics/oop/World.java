@@ -1,7 +1,7 @@
 package agh.ics.oop;
+import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
-import java.util.Arrays;
-import static agh.ics.oop.OptionParser.translate;
+import agh.ics.oop.model.Vector2d;
 
 public class World {
     public static void main(String[] args){
