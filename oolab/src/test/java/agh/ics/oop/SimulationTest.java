@@ -34,8 +34,8 @@ public class SimulationTest {
 
         for (Animal animal : animals) {
             assertTrue(animal.getDirection() == MapDirection.SOUTH);
-            assertTrue(animal.getCoordinates().follows(new Vector2d(0, 0)));
-            assertTrue(animal.getCoordinates().precedes(new Vector2d(4, 4)));
+            assertTrue(animal.getPosition().follows(new Vector2d(0, 0)));
+            assertTrue(animal.getPosition().precedes(new Vector2d(4, 4)));
         }
     }
 
@@ -59,7 +59,7 @@ public class SimulationTest {
 
         Animal animal = animals.get(0);
         assertTrue(animal.getDirection() == MapDirection.EAST);
-        assertTrue(animal.getCoordinates().equals(new Vector2d(0, 1)));
+        assertTrue(animal.getPosition().equals(new Vector2d(0, 1)));
     }
 
     @Test
@@ -94,13 +94,13 @@ public class SimulationTest {
         assertEquals(2, animals.size());
 
         for (Animal animal : animals) {
-            assertTrue(animal.getCoordinates().follows(new Vector2d(0, 0)));
-            assertTrue(animal.getCoordinates().precedes(new Vector2d(4, 4)));
+            assertTrue(animal.getPosition().follows(new Vector2d(0, 0)));
+            assertTrue(animal.getPosition().precedes(new Vector2d(4, 4)));
         }
 
         Animal animal = animals.get(0);
         assertTrue(animal.getDirection() == MapDirection.SOUTH);
-        assertTrue(animal.getCoordinates().equals(new Vector2d(2, 0)));
+        assertTrue(animal.getPosition().equals(new Vector2d(2, 0)));
     }
 
     @Test
@@ -135,12 +135,12 @@ public class SimulationTest {
         assertEquals(1, animals.size());
 
         for (Animal animal : animals) {
-            assertTrue(animal.getCoordinates().follows(new Vector2d(0, 0)));
-            assertTrue(animal.getCoordinates().precedes(new Vector2d(4, 4)));
+            assertTrue(animal.getPosition().follows(new Vector2d(0, 0)));
+            assertTrue(animal.getPosition().precedes(new Vector2d(4, 4)));
         }
 
         Animal animal = animals.get(0);
         assertTrue(animal.getDirection() == MapDirection.SOUTH);
-        assertTrue(animal.getCoordinates().equals(new Vector2d(2, 0)));
+        assertTrue(animal.getPosition().equals(new Vector2d(2, 0)));
     }
 }

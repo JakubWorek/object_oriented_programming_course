@@ -30,8 +30,8 @@ public class RectangularMap implements WorldMap{
 
     @Override
     public boolean place(Animal animal) {
-        if (canMoveTo(animal.getCoordinates())) {
-            animals.put(animal.getCoordinates(), animal);
+        if (canMoveTo(animal.getPosition())) {
+            animals.put(animal.getPosition(), animal);
             return true;
         }
         return false;
@@ -39,10 +39,10 @@ public class RectangularMap implements WorldMap{
 
     @Override
     public void move(Animal animal, MoveDirection direction) {
-        Vector2d oldPosition = animal.getCoordinates();
+        Vector2d oldPosition = animal.getPosition();
         animal.move(direction, this);
         animals.remove(oldPosition);
-        animals.put(animal.getCoordinates(), animal);
+        animals.put(animal.getPosition(), animal);
     }
 
     @Override
