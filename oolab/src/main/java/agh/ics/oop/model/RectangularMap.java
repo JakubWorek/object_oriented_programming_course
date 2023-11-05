@@ -1,7 +1,6 @@
 package agh.ics.oop.model;
 
 import agh.ics.oop.MapVisualizer;
-import agh.ics.oop.Vector2d;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class RectangularMap implements WorldMap{
     @Override
     public void move(Animal animal, MoveDirection direction) {
         Vector2d oldPosition = animal.getCoordinates();
-        animal.move(direction, this::canMoveTo);
+        animal.move(direction, this);
         animals.remove(oldPosition);
         animals.put(animal.getCoordinates(), animal);
     }
