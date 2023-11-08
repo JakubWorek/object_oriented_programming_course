@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
-public interface MoveValidator {
+public interface MoveValidator<P> {
 
     /*
      * Indicate if any object can move to the given position.
@@ -9,5 +9,5 @@ public interface MoveValidator {
      *            The position checked for the movement possibility.
      * @return True if the object can move to that position.
      */
-    boolean canMoveTo(Vector2d position);
+    boolean canMoveTo(P position);
 }

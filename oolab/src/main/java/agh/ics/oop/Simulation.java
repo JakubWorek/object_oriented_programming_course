@@ -9,9 +9,9 @@ import java.util.ArrayList;
 public class Simulation {
     private final List<Animal> animals;
     private final List<MoveDirection> directions;
-    private final WorldMap map;
+    private final WorldMap<Animal, Vector2d> map;
 
-    public Simulation(List<MoveDirection> directions, List<Vector2d> positions, WorldMap map) {
+    public Simulation(List<MoveDirection> directions, List<Vector2d> positions, WorldMap<Animal, Vector2d> map) {
         this.animals = new ArrayList<>();
         for (Vector2d position : positions) {
             Animal animal = new Animal(MapDirection.NORTH, position);
