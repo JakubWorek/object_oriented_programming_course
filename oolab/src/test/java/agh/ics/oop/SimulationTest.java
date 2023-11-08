@@ -81,4 +81,62 @@ public class SimulationTest {
         assertTrue(animal.getDirection() == MapDirection.EAST);
         assertTrue(animal.getCoordinates().equals(new Vector2d(1, 3)));
     }
+
+    @Test
+    public void testAnimalMoveWithInvalidDirections() {
+        Animal animal = new Animal(MapDirection.NORTH, new Vector2d(0, 0));
+
+        animal.move(MoveDirection.LEFT);
+        assertTrue(animal.getDirection() == MapDirection.WEST);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(0, 0)));
+
+        animal.move(MoveDirection.BACKWARD);
+        assertTrue(animal.getDirection() == MapDirection.WEST);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(1, 0)));
+
+        animal.move(MoveDirection.RIGHT);
+        assertTrue(animal.getDirection() == MapDirection.NORTH);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(1, 0)));
+
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.getDirection() == MapDirection.NORTH);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(1, 1)));
+    }
+
+    @Test
+    public void testIfAnimalCanMoveOutOfBoundaries(){
+        Animal animal = new Animal(MapDirection.WEST, new Vector2d(0, 0));
+
+        // left boundary
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(0, 0)));
+
+        // bottom boundary
+        animal.move(MoveDirection.LEFT);
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(0, 0)));
+
+        // right boundary
+        animal.move(MoveDirection.LEFT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(4, 0)));
+
+        // top boundary
+        animal.move(MoveDirection.LEFT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.getCoordinates().equals(new Vector2d(4, 4)));
+    }
 }
