@@ -1,6 +1,10 @@
-package agh.ics.oop.model;
+package agh.ics.oop;
 
 import agh.ics.oop.Simulation;
+import agh.ics.oop.model.Animal;
+import agh.ics.oop.model.MapDirection;
+import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
