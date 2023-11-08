@@ -44,18 +44,12 @@ public class Animal implements WorldElement{
             case FORWARD:
                 potentialNewPosition = this.position.add(this.direction.toUnitVector());
                 if (map.canMoveTo(potentialNewPosition)) {
-                    if (map.objectAt(potentialNewPosition) instanceof Grass) {
-                        ((GrassField) map).RespawnGrass(potentialNewPosition);
-                    }
                     this.position = potentialNewPosition;
                 }
                 break;
             case BACKWARD:
                 potentialNewPosition = this.position.subtract(this.direction.toUnitVector());
                 if (map.canMoveTo(potentialNewPosition)) {
-                    if (map.objectAt(potentialNewPosition) instanceof Grass) {
-                        ((GrassField) map).RespawnGrass(potentialNewPosition);
-                    }
                     this.position = potentialNewPosition;
                 }
                 break;

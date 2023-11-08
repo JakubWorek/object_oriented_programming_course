@@ -6,24 +6,22 @@ import java.util.*;
 
 public class GrassField implements WorldMap{
     private final int grassNumber;
-    private final int grassMaxSpawn;
-    protected Vector2d lowerLeft = new Vector2d(0, 0);
+    protected Vector2d lowerLeft = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
     protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     private final MapVisualizer visualizer;
     private final Map<Vector2d, Animal> animals;
     private final Map<Vector2d, Grass> grasses;
     public GrassField(int grassNumber, List<Vector2d> positions) {
         this.grassNumber = grassNumber;
-        this.grassMaxSpawn = (int) Math.sqrt(10 * this.grassNumber);
         this.animals = new HashMap<>();
         this.grasses = new HashMap<>();
         this.visualizer = new MapVisualizer(this);
-        Random random = new Random();
 
+        Random random = new Random();
         int i=0;
         while (i <= this.grassNumber) {
-            int x = random.nextInt(this.grassMaxSpawn);
-            int y = random.nextInt(this.grassMaxSpawn);
+            int x = random.nextInt((int) Math.sqrt(10 * this.grassNumber));
+            int y = random.nextInt((int) Math.sqrt(10 * this.grassNumber));
 
             boolean flag = false;
             for (Vector2d position: positions) {
@@ -87,36 +85,5 @@ public class GrassField implements WorldMap{
             top = top.upperRight(grass.getPosition());
         }
         return visualizer.draw(bottom, top);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GrassField that = (GrassField) o;
-        return grassNumber == that.grassNumber &&
-                grassMaxSpawn == that.grassMaxSpawn &&
-                lowerLeft.equals(that.lowerLeft) &&
-                upperRight.equals(that.upperRight) &&
-                visualizer.equals(that.visualizer) &&
-                animals.equals(that.animals) &&
-                grasses.equals(that.grasses);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(grassNumber, grassMaxSpawn, lowerLeft, upperRight, visualizer, animals, grasses);
-    }
-
-    public void RespawnGrass(Vector2d position) {
-        grasses.remove(position);
-        int[][] epsilon = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1,-1}, {1, 0}, {1, 1}};
-        for (int[] e: epsilon) {
-            Vector2d newPosition = position.add(new Vector2d(e[0], e[1]));
-            if (!(isOccupied(newPosition))) {
-                grasses.put(newPosition, new Grass(newPosition));
-                break;
-            }
-        }
     }
 }
