@@ -74,4 +74,14 @@ public class RectangularMapTest {
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
         assertEquals(animal2, map.objectAt(new Vector2d(2, 3)));
     }
+
+    @Test
+    public void testGetElements(){
+        WorldMap map = new RectangularMap(10, 5);
+        Animal animal1 = new Animal();
+        Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
+        map.place(animal1);
+        map.place(animal2);
+        assertEquals(2, map.getElements().size());
+    }
 }

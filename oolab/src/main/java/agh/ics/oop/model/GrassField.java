@@ -1,5 +1,4 @@
 package agh.ics.oop.model;
-import agh.ics.oop.model.util.MapVisualizer;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 
 import java.util.*;
@@ -41,11 +40,6 @@ public class GrassField extends AbstractWorldMap{
     }
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
-        return !(objectAt(position) instanceof Animal);
-    }
-
-    @Override
     public WorldElement objectAt(Vector2d position) {
         WorldElement object = super.objectAt(position);
         if(object != null) return object;
@@ -65,5 +59,12 @@ public class GrassField extends AbstractWorldMap{
             top = top.upperRight(grass.getPosition());
         }
         return visualizer.draw(bottom, top);
+    }
+
+    @Override
+    public List<WorldElement> getElements() {
+        List<WorldElement> elements = super.getElements();
+        elements.addAll(grasses.values());
+        return elements;
     }
 }

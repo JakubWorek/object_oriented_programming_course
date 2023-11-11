@@ -74,4 +74,14 @@ public class GrassFieldTest {
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
     }
+
+    @Test
+    public void testGetElements(){
+        WorldMap map = new GrassField(10);
+        Animal animal1 = new Animal();
+        Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
+        map.place(animal1);
+        map.place(animal2);
+        assertEquals(12, map.getElements().size());
+    }
 }
