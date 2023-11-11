@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GrassFieldTest {
     @Test
     public void testIfMapWorks(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2)));
+        WorldMap map = new GrassField(10);
         Animal animal = new Animal();
         map.place(animal);
         map.move(animal, MoveDirection.FORWARD);
@@ -15,7 +15,7 @@ public class GrassFieldTest {
 
     @Test
     public void testCanMoveTo1(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2)));
+        WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         map.place(animal1);
         assertTrue(map.canMoveTo(new Vector2d(2, 3)));
@@ -24,7 +24,7 @@ public class GrassFieldTest {
 
     @Test
     public void testCanMoveTo2(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2), new Vector2d(2, 3)));
+        WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
         map.place(animal1);
@@ -34,7 +34,7 @@ public class GrassFieldTest {
 
     @Test
     public void testPlace(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2)));
+        WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
         assertTrue(map.place(animal1));
@@ -43,7 +43,7 @@ public class GrassFieldTest {
 
     @Test
     public void testMove(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2), new Vector2d(3, 2)));
+        WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(3, 2));
         map.place(animal1);
@@ -56,7 +56,7 @@ public class GrassFieldTest {
 
     @Test
     public void testIsOccupied(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2)));
+        WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
         map.place(animal1);
@@ -66,13 +66,12 @@ public class GrassFieldTest {
 
     @Test
     public void testObjectAt(){
-        WorldMap map = new GrassField(10, List.of(new Vector2d(2,2)));
+        WorldMap map = new GrassField(10);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
         map.place(animal1);
         map.place(animal2);
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
-        assertNull(map.objectAt(new Vector2d(2, 3)));
     }
 }
