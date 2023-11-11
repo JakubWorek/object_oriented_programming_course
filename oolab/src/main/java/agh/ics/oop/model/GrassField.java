@@ -12,7 +12,7 @@ public class GrassField extends AbstractWorldMap{
     public GrassField(int grassNumber) {
         this.grassNumber = grassNumber;
         this.grasses = new HashMap<>();
-        /*
+        /* To rozwiązanie jest niedeterministyczne
         Random random = new Random();
         int i=0;
         while (i < this.grassNumber) {
@@ -32,6 +32,8 @@ public class GrassField extends AbstractWorldMap{
             }
         }
         */
+
+        // W tym przypadku jest deterministyczne
         RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int) Math.sqrt(10 * this.grassNumber), (int) Math.sqrt(10 * this.grassNumber), grassNumber);
         for (Vector2d grassPosition : randomPositionGenerator) {
             grasses.put(grassPosition, new Grass(grassPosition));
