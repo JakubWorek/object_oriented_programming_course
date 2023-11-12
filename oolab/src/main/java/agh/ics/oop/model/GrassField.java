@@ -1,15 +1,10 @@
 package agh.ics.oop.model;
 import agh.ics.oop.model.util.RandomPositionGenerator;
-
 import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
-    private final int grassNumber;
-    private final Vector2d lowerLeft = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    private final Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     private final Map<Vector2d, Grass> grasses;
     public GrassField(int grassNumber) {
-        this.grassNumber = grassNumber;
         this.grasses = new HashMap<>();
         /* To rozwiązanie jest niedeterministyczne
         Random random = new Random();
@@ -33,7 +28,7 @@ public class GrassField extends AbstractWorldMap{
         */
 
         // W tym przypadku jest deterministyczne
-        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int) Math.sqrt(10 * this.grassNumber), (int) Math.sqrt(10 * this.grassNumber), grassNumber);
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator((int) Math.sqrt(10 * grassNumber), (int) Math.sqrt(10 * grassNumber), grassNumber);
         for (Vector2d grassPosition : randomPositionGenerator) {
             grasses.put(grassPosition, new Grass(grassPosition));
         }
