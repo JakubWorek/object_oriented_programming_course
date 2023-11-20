@@ -36,10 +36,9 @@ public class OptionsParserTest {
     }
 
     @Test
-    void translate_shouldTranslateFailedForUnknownDirection() {
+    void parse_shouldThrowExceptionForUnknownDirection() {
         String[] args = {"x"};
-        List<MoveDirection> expected = List.of();
-        assertEquals(expected, OptionParser.parse(args));
+        assertThrows(IllegalArgumentException.class, () -> OptionParser.parse(args));
     }
 
     @Test

@@ -1,4 +1,5 @@
 package agh.ics.oop.model;
+import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +8,11 @@ public class RectangularMapTest {
     public void testIfMapWorks(){
         WorldMap map = new RectangularMap(10, 5);
         Animal animal = new Animal();
-        map.place(animal);
+        try {
+            assertTrue(map.place(animal));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         map.move(animal, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2, 3), animal.getPosition());
     }
@@ -16,7 +21,11 @@ public class RectangularMapTest {
     public void testCanMoveTo1(){
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
-        map.place(animal1);
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertTrue(map.canMoveTo(new Vector2d(2, 3)));
         assertFalse(map.canMoveTo(new Vector2d(2, 2)));
     }
@@ -26,8 +35,16 @@ public class RectangularMapTest {
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
+            assertTrue(map.place(animal2));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertFalse(map.canMoveTo(new Vector2d(2, 3)));
     }
 
@@ -36,8 +53,13 @@ public class RectangularMapTest {
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
-        assertTrue(map.place(animal1));
-        assertFalse(map.place(animal2));
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+
+        assertThrows(PositionAlreadyOccupiedException.class, () -> map.place(animal2));
     }
 
     @Test
@@ -45,8 +67,16 @@ public class RectangularMapTest {
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(3, 2));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
+            assertTrue(map.place(animal2));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         map.move(animal1, MoveDirection.FORWARD);
         map.move(animal2, MoveDirection.FORWARD);
         assertEquals(new Vector2d(2, 3), animal1.getPosition());
@@ -58,8 +88,12 @@ public class RectangularMapTest {
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 2));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        assertThrows(PositionAlreadyOccupiedException.class, () -> map.place(animal2));
         assertTrue(map.isOccupied(new Vector2d(2, 2)));
         assertFalse(map.isOccupied(new Vector2d(2, 3)));
     }
@@ -69,8 +103,16 @@ public class RectangularMapTest {
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
+            assertTrue(map.place(animal2));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertEquals(animal1, map.objectAt(new Vector2d(2, 2)));
         assertEquals(animal2, map.objectAt(new Vector2d(2, 3)));
     }
@@ -80,8 +122,16 @@ public class RectangularMapTest {
         WorldMap map = new RectangularMap(10, 5);
         Animal animal1 = new Animal();
         Animal animal2 = new Animal(MapDirection.SOUTH, new Vector2d(2, 3));
-        map.place(animal1);
-        map.place(animal2);
+        try {
+            assertTrue(map.place(animal1));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
+        try {
+            assertTrue(map.place(animal2));
+        } catch (PositionAlreadyOccupiedException e) {
+            fail("Unexpected exception: " + e.getMessage());
+        }
         assertEquals(2, map.getElements().size());
     }
 }
