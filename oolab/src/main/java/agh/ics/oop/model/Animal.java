@@ -1,23 +1,22 @@
 package agh.ics.oop.model;
 
-import java.util.function.Function;
-
-public class Animal {
+public class Animal implements WorldElement{
     private MapDirection direction;
-    private Vector2d coordinates;
+    private Vector2d position;
 
     public Animal(){
         this.direction = MapDirection.NORTH;
-        this.coordinates = new Vector2d(2,2);
+        this.position = new Vector2d(2,2);
     }
 
-    public Animal(MapDirection direction, Vector2d coordinates){
+    public Animal(MapDirection direction, Vector2d positions){
         this.direction = direction;
-        this.coordinates = coordinates;
+        this.position = positions;
     }
 
-    public Vector2d getCoordinates() {
-        return this.coordinates;
+    @Override
+    public Vector2d getPosition() {
+        return this.position;
     }
 
     public MapDirection getDirection() {
@@ -29,10 +28,10 @@ public class Animal {
     }
 
     public boolean isAt(Vector2d position){
-        return this.coordinates.equals(position);
+        return this.position.equals(position);
     }
 
-    public void move(MoveDirection direction, RectangularMap map){
+    public void move(MoveDirection direction, WorldMap map){
         Vector2d potentialNewPosition;
 
         switch (direction){
@@ -43,15 +42,15 @@ public class Animal {
                 this.direction = this.direction.previous();
                 break;
             case FORWARD:
-                potentialNewPosition = this.coordinates.add(this.direction.toUnitVector());
+                potentialNewPosition = this.position.add(this.direction.toUnitVector());
                 if (map.canMoveTo(potentialNewPosition)) {
-                    this.coordinates = potentialNewPosition;
+                    this.position = potentialNewPosition;
                 }
                 break;
             case BACKWARD:
-                potentialNewPosition = this.coordinates.subtract(this.direction.toUnitVector());
+                potentialNewPosition = this.position.subtract(this.direction.toUnitVector());
                 if (map.canMoveTo(potentialNewPosition)) {
-                    this.coordinates = potentialNewPosition;
+                    this.position = potentialNewPosition;
                 }
                 break;
             default:
