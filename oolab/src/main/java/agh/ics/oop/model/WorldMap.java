@@ -1,5 +1,6 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
 
 import java.util.List;
@@ -48,4 +49,9 @@ public interface WorldMap extends MoveValidator {
      * Return a collection of all elements (animals and grass) on the map.
      */
     List<WorldElement> getElements();
+
+    /*
+     * Return current map boundaries.
+     */
+    Boundary getBoundary();
 }
