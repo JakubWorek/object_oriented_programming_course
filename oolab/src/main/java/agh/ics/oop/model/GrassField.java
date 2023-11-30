@@ -32,13 +32,10 @@ public class GrassField extends AbstractWorldMap{
     public Boundary getBoundary(){
         Vector2d bottom = new Vector2d(upperRight.x, upperRight.y);
         Vector2d top = new Vector2d(lowerLeft.x, lowerLeft.y);
-        for (WorldElement animal: animals.values()) {
-            bottom = bottom.lowerLeft(animal.getPosition());
-            top = top.upperRight(animal.getPosition());
-        }
-        for (WorldElement grass: grasses.values()) {
-            bottom = bottom.lowerLeft(grass.getPosition());
-            top = top.upperRight(grass.getPosition());
+        List<WorldElement> elements = getElements();
+        for (WorldElement element: elements) {
+            bottom = bottom.lowerLeft(element.getPosition());
+            top = top.upperRight(element.getPosition());
         }
         return new Boundary(bottom, top);
     }

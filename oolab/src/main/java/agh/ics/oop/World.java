@@ -12,8 +12,9 @@ public class World {
         try {
             List<MoveDirection> directions = parse(args);
             List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-            WorldMap map = new GrassField(10);
-            // WorldMap map = new RectangularMap(5, 5);
+            AbstractWorldMap map = new GrassField(10);
+            // AbstractWorldMap map = new RectangularMap(5, 5);
+            map.addObserver(new ConsoleMapDisplay());
             Simulation simulation = new Simulation(directions, positions, map);
             simulation.run();
         } catch (IllegalArgumentException e) {
