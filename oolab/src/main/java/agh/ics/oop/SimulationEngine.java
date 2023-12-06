@@ -2,10 +2,15 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine {
     private final List<Simulation> simulations;
     private final List<Thread> threads = new ArrayList<>();
+    private final ExecutorService threadPool = Executors.newFixedThreadPool(4);
+
 
     public SimulationEngine(List<Simulation> simulations){
         this.simulations = simulations;
@@ -26,10 +31,22 @@ public class SimulationEngine {
         awaitSimulationEnd();
     }
 
+    public void runAsyncInThreadPool() {
+        for (Simulation simulation : simulations) {
+            threadPool.execute(simulation);
+        }
+        awaitSimulationEnd();
+    }
+
     public void awaitSimulationEnd() {
         try{
             for (Thread thread: threads){
                 thread.join();
+            }
+            threadPool.shutdown();
+            if (!threadPool.awaitTermination(10, TimeUnit.SECONDS)) {
+                // If termination takes more than 10 seconds, force shutdown
+                threadPool.shutdownNow();
             }
         }
         catch (InterruptedException e){
