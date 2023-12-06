@@ -4,6 +4,7 @@ import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /*
  * The interface responsible for interacting with the map of the world.
@@ -54,4 +55,9 @@ public interface WorldMap extends MoveValidator {
      * Return current map boundaries.
      */
     Boundary getBoundary();
+
+    /*
+     * Return current map id.
+     */
+    int getId();
 }

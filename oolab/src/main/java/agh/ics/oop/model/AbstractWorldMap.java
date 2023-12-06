@@ -7,11 +7,13 @@ import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
 import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
+    protected final int id = this.hashCode();
     protected Vector2d lowerLeft = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
     protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
     protected final List<MapChangeListener> observers = new ArrayList<>();
+
 
     public void addObserver(MapChangeListener observer) {
         observers.add(observer);
@@ -76,5 +78,10 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public String toString() {
         return visualizer.draw(getBoundary().lowerLeft(), getBoundary().upperRight());
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }
