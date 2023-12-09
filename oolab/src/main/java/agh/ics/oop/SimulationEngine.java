@@ -33,7 +33,7 @@ public class SimulationEngine {
 
     public void runAsyncInThreadPool() {
         for (Simulation simulation : simulations) {
-            threadPool.execute(simulation);
+            threadPool.submit(simulation);
         }
         awaitSimulationEnd();
     }
@@ -45,7 +45,6 @@ public class SimulationEngine {
             }
             threadPool.shutdown();
             if (!threadPool.awaitTermination(10, TimeUnit.SECONDS)) {
-                // If termination takes more than 10 seconds, force shutdown
                 threadPool.shutdownNow();
             }
         }
