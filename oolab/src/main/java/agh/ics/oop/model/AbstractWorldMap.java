@@ -1,6 +1,9 @@
 package agh.ics.oop.model;
 
+import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.MapVisualizer;
+import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
+
 import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
@@ -8,6 +11,21 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected Vector2d upperRight = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
     protected final Map<Vector2d, Animal> animals = new HashMap<>();
     protected final MapVisualizer visualizer = new MapVisualizer(this);
+    protected final List<MapChangeListener> observers = new ArrayList<>();
+
+    public void addObserver(MapChangeListener observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(MapChangeListener observer) {
+        observers.remove(observer);
+    }
+
+    protected void notifyObservers(String message) {
+        for (MapChangeListener observer : observers) {
+            observer.mapChanged(this, message);
+        }
+    }
 
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -15,12 +33,13 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
+    public boolean place(Animal animal) throws PositionAlreadyOccupiedException {
         if (canMoveTo(animal.getPosition())) {
             animals.put(animal.getPosition(), animal);
+            notifyObservers("Animal placed at " + animal.getPosition());
             return true;
         }
-        return false;
+        throw new PositionAlreadyOccupiedException(animal.getPosition());
     }
 
     @Override
@@ -29,6 +48,7 @@ public abstract class AbstractWorldMap implements WorldMap {
         animal.move(direction, this);
         animals.remove(oldPosition);
         animals.put(animal.getPosition(), animal);
+        notifyObservers("Animal moved from " + oldPosition + " to " + animal.getPosition());
     }
 
     @Override
@@ -45,7 +65,16 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public List<WorldElement> getElements() {
         List<WorldElement> elements = new ArrayList<>(animals.values());
-        // Add other elements if needed
         return elements;
+    }
+
+    @Override
+    public Boundary getBoundary() {
+        return new Boundary(lowerLeft, upperRight);
+    }
+
+    @Override
+    public String toString() {
+        return visualizer.draw(getBoundary().lowerLeft(), getBoundary().upperRight());
     }
 }
