@@ -49,7 +49,7 @@ public class SimulationEngine {
             }
         }
         catch (InterruptedException e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 }
