@@ -35,8 +35,11 @@ public class SimulationPresenter implements MapChangeListener {
     private int mapWidth;
     private int mapHeight;
 
-    private final int width = 50;
-    private final int height = 50;
+    private int width = 50;
+    private int height = 50;
+
+    private final int mapMaxHeight = 300;
+    private final int mapMaxWidth = 300;
 
     public void setWorldMap(WorldMap map) {
         this.map = map;
@@ -57,6 +60,10 @@ public class SimulationPresenter implements MapChangeListener {
         yMax = map.getBoundary().upperRight().y;
         mapWidth = xMax - xMin + 1;
         mapHeight = yMax - yMin + 1;
+        width = Math.round(mapMaxWidth/mapWidth);
+        height = Math.round(mapMaxHeight/mapHeight);
+        height = Math.min(height, width);
+        width = height;
     }
 
     public void columnsFunction(){
