@@ -2,6 +2,8 @@ package agh.ics.oop.model;
 import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.RandomPositionGenerator;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GrassField extends AbstractWorldMap{
     private final Map<Vector2d, Grass> grasses;
@@ -23,9 +25,8 @@ public class GrassField extends AbstractWorldMap{
 
     @Override
     public List<WorldElement> getElements() {
-        List<WorldElement> elements = super.getElements();
-        elements.addAll(grasses.values());
-        return elements;
+        return Stream.concat(super.getElements().stream(), grasses.values().stream())
+                .collect(Collectors.toList());
     }
 
     @Override
