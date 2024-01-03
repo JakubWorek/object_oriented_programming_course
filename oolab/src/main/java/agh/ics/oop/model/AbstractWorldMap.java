@@ -71,13 +71,13 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    public Boundary getBoundary() {
+    public Boundary getCurrentBounds() {
         return new Boundary(lowerLeft, upperRight);
     }
 
     @Override
     public String toString() {
-        return visualizer.draw(getBoundary().lowerLeft(), getBoundary().upperRight());
+        return visualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());
     }
 
     @Override

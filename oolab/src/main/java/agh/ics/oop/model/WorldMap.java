@@ -54,7 +54,7 @@ public interface WorldMap extends MoveValidator {
     /*
      * Return current map boundaries.
      */
-    Boundary getBoundary();
+    Boundary getCurrentBounds();
 
     /*
      * Return current map id.
