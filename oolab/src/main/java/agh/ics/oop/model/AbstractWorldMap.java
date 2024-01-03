@@ -71,6 +71,19 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     @Override
+    public Collection<Animal> getOrderedAnimals() {
+        List<Animal> orderedAnimals = new ArrayList<>(animals.values());
+
+        Comparator<Animal> positionComparator = Comparator
+                .comparing((Animal animal) -> animal.getPosition().getX())
+                .thenComparing((Animal animal) -> animal.getPosition().getY());
+
+        Collections.sort(orderedAnimals, positionComparator);
+
+        return orderedAnimals;
+    }
+
+    @Override
     public Boundary getCurrentBounds() {
         return new Boundary(lowerLeft, upperRight);
     }

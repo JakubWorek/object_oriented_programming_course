@@ -15,6 +15,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static agh.ics.oop.OptionParser.parse;
@@ -54,10 +56,10 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void updateBounds(){
-        xMin = map.getBoundary().lowerLeft().x;
-        yMin = map.getBoundary().lowerLeft().y;
-        xMax = map.getBoundary().upperRight().x;
-        yMax = map.getBoundary().upperRight().y;
+        xMin = map.getCurrentBounds().lowerLeft().x;
+        yMin = map.getCurrentBounds().lowerLeft().y;
+        xMax = map.getCurrentBounds().upperRight().x;
+        yMax = map.getCurrentBounds().upperRight().y;
         mapWidth = xMax - xMin + 1;
         mapHeight = yMax - yMin + 1;
         width = Math.round(mapMaxWidth/mapWidth);
@@ -130,6 +132,15 @@ public class SimulationPresenter implements MapChangeListener {
         List<MoveDirection> directions = parse(moveList.split(" "));
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
         AbstractWorldMap map = new GrassField(10);
+        map.addObserver((worldMap, message) -> {
+            // Pobierz aktualną datę i czas
+            LocalDateTime dateTime = LocalDateTime.now();
+            // Formatuj wiadomość
+            String formattedMessage = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +
+                    " " + message;
+            // Wypisz sformatowaną wiadomość
+            System.out.println(formattedMessage);
+        });
         map.addObserver(this);
         Simulation simulation = new Simulation(directions, positions, map);
         SimulationEngine engine = new SimulationEngine(List.of(simulation));
