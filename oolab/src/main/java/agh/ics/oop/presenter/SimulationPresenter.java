@@ -54,10 +54,10 @@ public class SimulationPresenter implements MapChangeListener {
     }
 
     public void updateBounds(){
-        xMin = map.getBoundary().lowerLeft().x;
-        yMin = map.getBoundary().lowerLeft().y;
-        xMax = map.getBoundary().upperRight().x;
-        yMax = map.getBoundary().upperRight().y;
+        xMin = map.getCurrentBounds().lowerLeft().x;
+        yMin = map.getCurrentBounds().lowerLeft().y;
+        xMax = map.getCurrentBounds().upperRight().x;
+        yMax = map.getCurrentBounds().upperRight().y;
         mapWidth = xMax - xMin + 1;
         mapHeight = yMax - yMin + 1;
         width = Math.round(mapMaxWidth/mapWidth);
