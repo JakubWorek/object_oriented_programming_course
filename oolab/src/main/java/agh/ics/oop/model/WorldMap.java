@@ -3,6 +3,7 @@ package agh.ics.oop.model;
 import agh.ics.oop.model.util.Boundary;
 import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -54,7 +55,12 @@ public interface WorldMap extends MoveValidator {
     /*
      * Return current map boundaries.
      */
-    Boundary getBoundary();
+    Boundary getCurrentBounds();
+
+    /*
+     * Return sorted collection of animals.
+     */
+    Collection<Animal> getOrderedAnimals();
 
     /*
      * Return current map id.

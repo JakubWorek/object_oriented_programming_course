@@ -5,6 +5,7 @@ import agh.ics.oop.model.util.MapVisualizer;
 import agh.ics.oop.model.util.PositionAlreadyOccupiedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractWorldMap implements WorldMap {
     protected final int id = this.hashCode();
@@ -71,13 +72,24 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     @Override
-    public Boundary getBoundary() {
+    public Collection<Animal> getOrderedAnimals() {
+        Comparator<Animal> positionComparator = Comparator
+                .comparing((Animal animal) -> animal.getPosition().getX())
+                .thenComparing((Animal animal) -> animal.getPosition().getY());
+
+        return animals.values().stream()
+                .sorted(positionComparator)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boundary getCurrentBounds() {
         return new Boundary(lowerLeft, upperRight);
     }
 
     @Override
     public String toString() {
-        return visualizer.draw(getBoundary().lowerLeft(), getBoundary().upperRight());
+        return visualizer.draw(getCurrentBounds().lowerLeft(), getCurrentBounds().upperRight());
     }
 
     @Override
